@@ -1,0 +1,221 @@
+= if ( ) while + - / * a 1 $
+P S A X F W E T O I D
+
+0 if s6
+0 while s7
+0 a s8
+1 if s6
+1 while s7
+1 a s8
+1 $ acc
+2 if r3
+2 while r3
+2 a r3
+2 $ r3
+3 if r4
+3 while r4
+3 a r4
+3 $ r4
+4 if r5
+4 while r5
+4 a r5
+4 $ r5
+5 = s11
+6 ( s12
+7 ( s13
+8 = r19
+9 if s6
+9 while s7
+9 a s8
+9 $ r2
+10 a s18
+10 1 s19
+11 a r7
+11 1 r7
+12 a s8
+13 a s8
+14 if r6
+14 while r6
+14 a r6
+14 $ r6
+15 if r10
+15 while r10
+15 a r10
+15 $ r10
+15 + r14
+15 - r14
+15 / r14
+15 * r14
+16 if r11
+16 while r11
+16 a r11
+16 $ r11
+16 + r13
+16 - r13
+16 / r13
+16 * r13
+17 + s24
+17 - s25
+17 / s26
+17 * s27
+18 if r19
+18 while r19
+18 a r19
+18 $ r19
+18 + r19
+18 - r19
+18 / r19
+18 * r19
+19 if r20
+19 while r20
+19 a r20
+19 $ r20
+19 + r20
+19 - r20
+19 / r20
+19 * r20
+20 ) s28
+21 = s11
+22 ) s30
+23 a s18
+23 1 s19
+24 a r15
+24 1 r15
+25 a r16
+25 1 r16
+26 a r17
+26 1 r17
+27 a r18
+27 1 r18
+28 if s6
+28 while s7
+28 a s8
+29 a s37
+29 1 s38
+30 if s6
+30 while s7
+30 a s8
+31 if r12
+31 while r12
+31 a r12
+31 $ r12
+32 if s6
+32 while s7
+32 a s8
+32 $ r8
+33 ) r6
+34 ) r10
+34 + r14
+34 - r14
+34 / r14
+34 * r14
+35 ) r11
+35 + r13
+35 - r13
+35 / r13
+35 * r13
+36 + s24
+36 - s25
+36 / s26
+36 * s27
+37 ) r19
+37 + r19
+37 - r19
+37 / r19
+37 * r19
+38 ) r20
+38 + r20
+38 - r20
+38 / r20
+38 * r20
+39 if s6
+39 while s7
+39 a s8
+39 $ r9
+40 a s37
+40 1 s38
+41 ) r12
+0 S g1
+0 A g2
+0 F g3
+0 W g4
+0 I g5
+1 S g9
+1 A g2
+1 F g3
+1 W g4
+1 I g5
+5 X g10
+9 S g9
+9 A g2
+9 F g3
+9 W g4
+9 I g5
+10 E g14
+10 T g17
+10 I g15
+10 D g16
+12 A g20
+12 I g21
+13 A g22
+13 I g21
+17 O g23
+21 X g29
+23 E g31
+23 T g17
+23 I g15
+23 D g16
+28 S g32
+28 A g2
+28 F g3
+28 W g4
+28 I g5
+29 E g33
+29 T g36
+29 I g34
+29 D g35
+30 S g39
+30 A g2
+30 F g3
+30 W g4
+30 I g5
+32 S g9
+32 A g2
+32 F g3
+32 W g4
+32 I g5
+36 O g40
+39 S g9
+39 A g2
+39 F g3
+39 W g4
+39 I g5
+40 E g41
+40 T g36
+40 I g34
+40 D g35
+
+P S
+S S
+S SS
+S A
+S F
+S W
+A IXE
+X =
+F F(A)S
+W W(A)S
+E I
+E D
+E TOE
+T D
+T I
+O +
+O -
+O /
+O *
+I a
+D 1
+
+
+
