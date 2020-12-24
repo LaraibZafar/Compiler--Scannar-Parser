@@ -29,6 +29,10 @@ public class smolParser {
         WHILE,
         EQ,
         EQEQ,
+        PLUS,
+        MINUS,
+        DIV,
+        MUL,
         EOF
     }
 
@@ -50,6 +54,10 @@ public class smolParser {
         TYPETOSTRING.put(tokenType.WHILE.ordinal()+"","while");
         TYPETOSTRING.put(tokenType.EQ.ordinal()+"","=");
         TYPETOSTRING.put(tokenType.EQEQ.ordinal()+"","=");
+        TYPETOSTRING.put(tokenType.PLUS.ordinal()+"","+");
+        TYPETOSTRING.put(tokenType.MINUS.ordinal()+"","-");
+        TYPETOSTRING.put(tokenType.DIV.ordinal()+"","/");
+        TYPETOSTRING.put(tokenType.MUL.ordinal()+"","*");
         TYPETOSTRING.put(tokenType.EOF.ordinal()+"","$");
 
         parser CompilerParser=new parser();
@@ -69,7 +77,7 @@ public class smolParser {
 }
 class parser{
     String[][] transitionTable;
-    String[][] grammarRules= new String[21][2];
+    String[][] grammarRules= new String[32][2];
     String[] random;
     token[] tokenArray;
     HashMap<String, String> TYPETOSTRING;
@@ -126,6 +134,8 @@ class parser{
                 currentState = Integer.parseInt(stack.peek());
                 tokenColumn = columnOf(transitionTable[0],LHS);
                 stack.push(LHS);
+                System.out.println(currentState);
+                System.out.println(tokenColumn);
                 if(transitionTable[currentState][tokenColumn].length()>2) {
                     stack.push(""+transitionTable[currentState][tokenColumn].charAt(1)+""+transitionTable[currentState][tokenColumn].charAt(2));     //Transition on State when char = reduction char
                 }
@@ -146,7 +156,7 @@ class parser{
     public String[][] populateTransitionTable(){
         try {
             //open a file
-            File file = new File("C:\\Users\\Laraib Zafar\\IdeaProjects\\Compile-Scanner-Parser\\src\\TinyGrammar.txt");
+            File file = new File("C:\\Users\\Laraib Zafar\\IdeaProjects\\Compile-Scanner-Parser\\src\\UpdatedGrammar.txt");
             FileReader fr=new FileReader(file);
             BufferedReader br=new BufferedReader(fr);
             StringBuffer sb=new StringBuffer();
@@ -158,7 +168,7 @@ class parser{
             readLine=br.readLine();
             String[] nonTerminalSymbols = readLine.split(" ");
 
-            transitionTable = new String[43][terminalSymbols.length+nonTerminalSymbols.length];
+            transitionTable = new String[70][terminalSymbols.length+nonTerminalSymbols.length];
             transitionTable = populateSymbols(transitionTable,terminalSymbols, nonTerminalSymbols);
 
             //State Transition

@@ -28,6 +28,10 @@ enum tokenType {
     WHILE,
     EQ,
     EQEQ,
+    PLUS,
+    MINUS,
+    DIV,
+    MUL,
     EOF
 }
 
@@ -182,6 +186,22 @@ class tokenizer{
                     token newToken=new token(tokenType.GEQ);
                     return newToken;
                 }
+            }
+            else if (thisCharacter == '+'){
+                token newToken=new token(tokenType.PLUS);
+                return newToken;
+            }
+            else if (thisCharacter == '-'){
+                token newToken=new token(tokenType.MINUS);
+                return newToken;
+            }
+            else if (thisCharacter == '*'){
+                token newToken=new token(tokenType.MUL);
+                return newToken;
+            }
+            else if (thisCharacter == '/'){
+                token newToken=new token(tokenType.DIV);
+                return newToken;
             }
         }
         catch(Exception e){
