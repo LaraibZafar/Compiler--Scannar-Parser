@@ -14,12 +14,12 @@ class StatementNode extends Node{
     IfNode IfStatementNode;
     WhileNode WhileStatementNode;
 
-    public StatementNode(StatementNode statementNode1){
-        this.statementNode1 = statementNode1;
-    }
     public StatementNode(StatementNode statementNode1, StatementNode statementNode2){
         this.statementNode1 = statementNode1;
         this.statementNode2 = statementNode2;
+    }
+    public StatementNode(StatementNode statementNode1){
+        this.statementNode1 = statementNode1;
     }
     public StatementNode(AssignStatementNode assignStatementNode){
         this.assignStatementNode = assignStatementNode;
@@ -97,11 +97,11 @@ class CompareOperatorNode extends Node{
 
 class ExpressionNode extends Node{
     ExpressionNode expressionNode;
-    EqualNode equalNode;
+    Operation1Node operation1Node;
     TermNode termNode;
-    public ExpressionNode(ExpressionNode expressionNode,EqualNode equalNode,TermNode termNode){
+    public ExpressionNode(ExpressionNode expressionNode,Operation1Node operation1Node,TermNode termNode){
         this.expressionNode = expressionNode;
-        this.equalNode = equalNode;
+        this.operation1Node = operation1Node;
         this.termNode = termNode;
     }
     public ExpressionNode(TermNode termNode){
@@ -149,8 +149,8 @@ class FactorNode extends Node{
 }
 
 class NumberNode extends Node{
-    int number;
-    public NumberNode(int number){
+    String number;
+    public NumberNode(String number){
         this.number = number;
     }
 }

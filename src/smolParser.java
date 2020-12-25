@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.util.Stack;
 import java.util.ArrayList;
 import static java.lang.System.exit;
+import static java.lang.System.setOut;
 
 import java.util.HashMap;
 
@@ -86,50 +87,34 @@ class parser{
         Stack<tokenNode> stack2= new Stack<>();
         this.TYPETOSTRING = TYPETOSTRING;
         tokenArray= compiilerScanner.main(random);
-        //printTokenArray(tokenArray);
         int tokenCount=0;
         String operation;
-        //String token = getToken(tokenCount++);
         tokenNode token2 = new tokenNode(getToken2(tokenCount++));
-//        if(token.equals("\0")){
-//            return -1;
-//        }
         if(token2.scannerToken ==null){
             return -1;
         }
-//        stack.push("1");
         stack2.push(new tokenNode(1));
         while(true){
-//            int currentState= Integer.parseInt(stack.peek());
                 int currentState2 = stack2.peek().stateNumber;
-            //currentState--;
-//            int tokenColumn = columnOf(transitionTable[0],""+token);
+            System.out.println(token2.name);
             int tokenColumn2 = columnOf(transitionTable[0],""+token2.name);
-//            if(transitionTable[currentState][tokenColumn]==null){
-//                System.out.println("Error at : " + token);
-//                exit(0);
-//            }
+            if(transitionTable[currentState2][tokenColumn2]==null){
+                System.out.println("Error at : " + token2.name);
+                exit(0);
+           }
             if(transitionTable[currentState2][tokenColumn2].charAt(0)=='s'){          //shift
                 operation = transitionTable[currentState2][tokenColumn2];
-//                stack.push(""+token);
                 stack2.push(token2);
                 if(operation.length()>2){
-//                    stack.push(""+operation.charAt(1)+""+operation.charAt(2));
                     stack2.push(new tokenNode(Integer.parseInt(""+operation.charAt(1)+""+operation.charAt(2))));
                 }
                 else {
-//                    stack.push("" + operation.charAt(1));
                     stack2.push(new tokenNode(Integer.parseInt("" + operation.charAt(1))));
                 }
-//                token = getToken(tokenCount++);
                 token2 = new tokenNode(getToken2(tokenCount++));
-//                if(token.equals("\0")){
-//                    return -1;
-//                }
                 if(token2.scannerToken ==null){
                     return -1;
                 }
-                //System.out.println(stack.toString());
             }
             else if(transitionTable[currentState2][tokenColumn2].charAt(0)=='r'){
                 operation = transitionTable[currentState2][tokenColumn2];
@@ -145,26 +130,22 @@ class parser{
                 String RHS = grammarRules[grammarRuleNumber][1];
                 for (int i = 0; i < 2* RHS.length() ; i++) {                    //Pop the Character & the state
                     if(i%2==0) {      //Don't want the index numbers
-//                        stack.pop();
                         stack2.pop();
                     }
                     else{
-//                        poppedTokens.add(stack.pop());
                         poppedTokens2.add(stack2.pop());
                     }
                 }
-                printPoppedTokens();
-//                currentState = Integer.parseInt(stack.peek());
                 currentState2 = stack2.peek().stateNumber;
                 tokenColumn2 = columnOf(transitionTable[0],LHS);
-                stack2.push(new tokenNode(LHS));
-                //System.out.println(currentState);
-                //System.out.println(tokenColumn);
+                initializeNode(poppedTokens2,LHS,stack2);
+                poppedTokens2.clear();
                 if(transitionTable[currentState2][tokenColumn2].length()>2) {
                     stack2.push(new tokenNode(Integer.parseInt(""+transitionTable[currentState2][tokenColumn2].charAt(1)+""+transitionTable[currentState2][tokenColumn2].charAt(2))));     //Transition on State when char = reduction char
                 }
                 else{
-                    //System.out.println(token);
+                    System.out.println(token2.scannerToken.tokenType.name());
+                    System.out.println(currentState2);
                     stack2.push(new tokenNode(Integer.parseInt(""+transitionTable[currentState2][tokenColumn2].charAt(1))));     //Transition on State when char = reduction char
                 }
             }
@@ -191,26 +172,100 @@ class parser{
                     SNode = new StatementNode((StatementNode) poppedTokens.get(0).node);
                 else if (poppedTokens.get(0).name.equals("A"))
                     SNode = new StatementNode((AssignStatementNode) poppedTokens.get(0).node);
+                else if (poppedTokens.get(0).name.equals("L"))
+                    SNode = new StatementNode((IfNode) poppedTokens.get(0).node);
+                else if (poppedTokens.get(0).name.equals("W"))
+                    SNode = new StatementNode((WhileNode) poppedTokens.get(0).node);
             }
             else{
-                SNode = new StatementNode((StatementNode) poppedTokens.get(0).node,(StatementNode) poppedTokens.get(1).node);
+                SNode = new StatementNode((StatementNode) poppedTokens.get(1).node,(StatementNode) poppedTokens.get(0).node);
             }
             stack2.push(new tokenNode(SNode,LHS));
 
         }
-        else if(LHS.equals("A")){}
-        else if(LHS.equals("X")){}
-        else if(LHS.equals("L")){}
-        else if(LHS.equals("W")){}
-        else if(LHS.equals("Y")){}
-        else if(LHS.equals("C")){}
-        else if(LHS.equals("E")){}
-        else if(LHS.equals("O")){}
-        else if(LHS.equals("T")){}
-        else if(LHS.equals("U")){}
-        else if(LHS.equals("F")){}
-        else if(LHS.equals("I")){}
-        else if(LHS.equals("N")){}
+        else if(LHS.equals("A")){
+            AssignStatementNode ANode;
+            ANode = new AssignStatementNode((IdentifierNode)poppedTokens.get(2).node,(EqualNode) poppedTokens.get(1).node,(ExpressionNode)poppedTokens.get(0).node);
+            stack2.push(new tokenNode(ANode,LHS));
+        }
+        else if(LHS.equals("X")){
+            EqualNode ENode = new EqualNode();
+            stack2.push(new tokenNode(ENode,LHS));
+        }
+        else if(LHS.equals("L")){
+            IfNode LNode;
+            LNode = new IfNode((CompareStatementNode) poppedTokens.get(2).node,(StatementNode) poppedTokens.get(0).node);
+            stack2.push(new tokenNode(LNode,LHS));
+        }
+        else if(LHS.equals("W")){
+            WhileNode WNode;
+            WNode = new WhileNode((CompareStatementNode) poppedTokens.get(2).node,(StatementNode) poppedTokens.get(0).node);
+            stack2.push(new tokenNode(WNode,LHS));
+        }
+        else if(LHS.equals("Y")){
+            CompareStatementNode YNode=null;
+            if(poppedTokens.get(0).name.equals("N"))
+                YNode = new CompareStatementNode((IdentifierNode) poppedTokens.get(2).node,(CompareOperatorNode) poppedTokens.get(1).node,(NumberNode) poppedTokens.get(0).node);
+            if(poppedTokens.get(0).name.equals("I"))
+                YNode = new CompareStatementNode((IdentifierNode) poppedTokens.get(2).node,(CompareOperatorNode) poppedTokens.get(1).node,(IdentifierNode) poppedTokens.get(0).node);
+            stack2.push(new tokenNode(YNode,LHS));
+        }
+        else if(LHS.equals("C")){ //<=
+            CompareOperatorNode CNode = new CompareOperatorNode(poppedTokens.get(0).name);
+            stack2.push(new tokenNode(CNode,LHS));
+
+        }
+        else if(LHS.equals("E")){
+            ExpressionNode ENode = null;
+            if(poppedTokens.size()==1) {
+                ENode = new ExpressionNode((TermNode) poppedTokens.get(0).node);
+            }
+            else{
+                ENode = new ExpressionNode((ExpressionNode) poppedTokens.get(2).node,(Operation1Node) poppedTokens.get(1).node,(TermNode) poppedTokens.get(0).node);
+            }
+            stack2.push(new tokenNode(ENode,LHS));
+            }
+        else if(LHS.equals("O")){
+            Operation1Node O1Node;
+            O1Node = new Operation1Node(poppedTokens.get(0).scannerToken.actionTableValue);
+            stack2.push(new tokenNode(O1Node,LHS));
+        }
+        else if(LHS.equals("T")){
+            TermNode TNode = null;
+            if(poppedTokens.size()==1) {
+                TNode = new TermNode((FactorNode) poppedTokens.get(0).node);
+            }
+            else{
+                TNode = new TermNode((TermNode) poppedTokens.get(2).node,(Operation2Node) poppedTokens.get(1).node,(FactorNode) poppedTokens.get(0).node);
+            }
+            stack2.push(new tokenNode(TNode,LHS));
+        }
+        else if(LHS.equals("U")){
+            Operation2Node O2Node;
+            O2Node = new Operation2Node(poppedTokens.get(0).scannerToken.actionTableValue);
+            stack2.push(new tokenNode(O2Node,LHS));
+
+        }
+        else if(LHS.equals("F")){
+            FactorNode FNode = null;
+            if(poppedTokens.get(0).name.equals("E"))
+                FNode = new FactorNode((ExpressionNode) poppedTokens.get(0).node);
+            else if (poppedTokens.get(0).name.equals("I"))
+                FNode = new FactorNode((IdentifierNode) poppedTokens.get(0).node);
+            stack2.push(new tokenNode(FNode,LHS));
+        }
+        else if(LHS.equals("I")){
+            IdentifierNode INode;
+            INode = new IdentifierNode(poppedTokens.get(0).scannerToken.identifierName);
+            stack2.push(new tokenNode(INode,LHS));
+
+        }
+        else if(LHS.equals("N")){
+            NumberNode NNode;
+            NNode = new NumberNode(poppedTokens.get(0).scannerToken.identifierName);
+            stack2.push(new tokenNode(NNode,LHS));
+
+        }
 
 
 
@@ -344,9 +399,9 @@ class parser{
     }
     public token getToken2(int tokenCount) {
         if (tokenCount < tokenArray.length) {
-            //System.out.println(TYPETOSTRING.get(tokenArray[tokenCount].tokenType.ordinal() + ""));
             String actionTableValue = TYPETOSTRING.get(tokenArray[tokenCount].tokenType.ordinal() + "");
             tokenArray[tokenCount].actionTableValue = actionTableValue;
+            System.out.println("ACTION TABLE VALUE : "+ actionTableValue);
             return tokenArray[tokenCount];
 
         } else {
