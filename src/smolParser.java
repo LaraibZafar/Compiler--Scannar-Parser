@@ -82,7 +82,7 @@ class parser{
         Stack<String> stack= new Stack<>();
         this.TYPETOSTRING = TYPETOSTRING;
         tokenArray= compiilerScanner.main(random);
-        printTokenArray(tokenArray);
+        //printTokenArray(tokenArray);
         int tokenCount=0;
         String operation;
         String token = getToken(tokenCount++);
@@ -143,9 +143,11 @@ class parser{
                 }
             }
             else if(transitionTable[currentState][tokenColumn].equals("acc")) {
+                printTokenArray(tokenArray);
                 return 1;
             }
             else{       //Token not found
+                printTokenArray(tokenArray);
                 return -1;
             }
         }
@@ -268,7 +270,9 @@ class parser{
     public String getToken(int tokenCount) {
         if (tokenCount < tokenArray.length) {
                 //System.out.println(TYPETOSTRING.get(tokenArray[tokenCount].tokenType.ordinal() + ""));
-                return TYPETOSTRING.get(tokenArray[tokenCount].tokenType.ordinal() + "");
+            String actionTableValue = TYPETOSTRING.get(tokenArray[tokenCount].tokenType.ordinal() + "");
+            tokenArray[tokenCount].actionTableValue = actionTableValue;
+            return actionTableValue;
 
         } else {
             return "\0";
@@ -278,11 +282,18 @@ class parser{
         System.out.println("\n\nSCANNER => TOKEN ARRAY:");
         for(token currentToken : tokenArray){
             if(currentToken != null)
-                System.out.println(currentToken.tokenType);
+                System.out.println(currentToken.tokenType + " : "+currentToken.identifierName+ " : "+currentToken.actionTableValue);
         }
         System.out.println("");
     }
 }
 
+class tokenNode{
+    token token;
+
+    public tokenNode(token token){
+        this.token = token;
+    }
+}
 
 

@@ -118,7 +118,7 @@ class tokenizer{
                     thisCharacter = (char) input;
                     if (thisCharacter == ' ' || thisCharacter == '\n'|| thisCharacter == '\r') {
                         int integerValue = Integer.parseInt(integerString);
-                        token newToken = new token(tokenType.INT, integerValue);
+                        token newToken = new token(tokenType.INT, integerString);
                         return newToken;
                     } else if (Character.isDigit(thisCharacter))
                         integerString += thisCharacter;
@@ -214,6 +214,7 @@ class tokenizer{
 class token{
     tokenType tokenType;
     String identifierName;
+    String actionTableValue;
     int intValue;
     public token(tokenType tokenType, String identifierName){
         this.tokenType=tokenType;
