@@ -341,12 +341,12 @@ W w(Y)S
 Y ICN
 Y ICI
 C X
-C <=
 C <
-C >=
+C <
 C >
-C !=
-C ==
+C >
+C !
+C =
 E EOT
 O +
 O -

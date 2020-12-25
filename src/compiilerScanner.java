@@ -66,7 +66,7 @@ class tokenizer{
             thisToken.identifierName="$";
             tokenArray[index]=thisToken;
             index++;
-            System.out.println(thisToken.tokenType+ " "+thisToken.identifierName+ " "+thisToken.intValue);
+            //System.out.println(thisToken.tokenType+ " "+thisToken.identifierName+ " "+thisToken.intValue);
 
 
         } catch (Exception e) {
@@ -116,7 +116,7 @@ class tokenizer{
                 int input;
                 while ((input = bufferReader.read()) != -1) {
                     thisCharacter = (char) input;
-                    if (thisCharacter == ' ') {
+                    if (thisCharacter == ' ' || thisCharacter == '\n'|| thisCharacter == '\r') {
                         int integerValue = Integer.parseInt(integerString);
                         token newToken = new token(tokenType.INT, integerValue);
                         return newToken;

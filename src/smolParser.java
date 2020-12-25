@@ -1,12 +1,9 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.Arrays;
-import java.util.Scanner;
 import java.util.Stack;
 
 import static java.lang.System.exit;
-import static java.lang.System.in;
 
 import java.util.HashMap;
 
@@ -64,7 +61,7 @@ public class smolParser {
         String[][] transitionTable=CompilerParser.populateTransitionTable();
         CompilerParser.printTransitionTable();
         CompilerParser.printGrammarRules();
-        System.out.println("\nTransition Table & Grammar Rules Specified\n\nEnter an input String : ");
+        System.out.println("\nTransition Table & Grammar Rules Specified\n\n");
             //String inputString = input.nextLine();
             int returnValue = CompilerParser.LrParser(TYPETOSTRING);
             if(returnValue==1){
@@ -85,6 +82,7 @@ class parser{
         Stack<String> stack= new Stack<>();
         this.TYPETOSTRING = TYPETOSTRING;
         tokenArray= compiilerScanner.main(random);
+        printTokenArray(tokenArray);
         int tokenCount=0;
         String operation;
         String token = getToken(tokenCount++);
@@ -134,8 +132,8 @@ class parser{
                 currentState = Integer.parseInt(stack.peek());
                 tokenColumn = columnOf(transitionTable[0],LHS);
                 stack.push(LHS);
-                System.out.println(currentState);
-                System.out.println(tokenColumn);
+                //System.out.println(currentState);
+                //System.out.println(tokenColumn);
                 if(transitionTable[currentState][tokenColumn].length()>2) {
                     stack.push(""+transitionTable[currentState][tokenColumn].charAt(1)+""+transitionTable[currentState][tokenColumn].charAt(2));     //Transition on State when char = reduction char
                 }
@@ -275,6 +273,14 @@ class parser{
         } else {
             return "\0";
         }
+    }
+    public void printTokenArray(token[] tokenArray){
+        System.out.println("\n\nSCANNER => TOKEN ARRAY:");
+        for(token currentToken : tokenArray){
+            if(currentToken != null)
+                System.out.println(currentToken.tokenType);
+        }
+        System.out.println("");
     }
 }
 
