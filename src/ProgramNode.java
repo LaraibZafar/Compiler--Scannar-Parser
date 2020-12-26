@@ -1,11 +1,18 @@
+import java.util.ArrayList;
+
 abstract class Node{
-    Node childNode[];
+    ArrayList<Node> childrenNodes;
 }
 
 public class ProgramNode extends Node {
     StatementNode statementNode;
     public ProgramNode(StatementNode statementNode){
+        super();
         this.statementNode = statementNode;
+        childrenNodes.add(this.statementNode);
+    }
+    public String toString(){
+        return "Program";
     }
 }
 
@@ -17,20 +24,33 @@ class StatementNode extends Node{
     WhileNode WhileStatementNode;
 
     public StatementNode(StatementNode statementNode1, StatementNode statementNode2){
+        super();
         this.statementNode1 = statementNode1;
         this.statementNode2 = statementNode2;
     }
     public StatementNode(StatementNode statementNode1){
+        super();
+        childrenNodes = new ArrayList<Node>();
         this.statementNode1 = statementNode1;
+        childrenNodes.add(statementNode1);
     }
     public StatementNode(AssignStatementNode assignStatementNode){
+        super();
+        childrenNodes = new ArrayList<Node>();
         this.assignStatementNode = assignStatementNode;
+        childrenNodes.add(this.assignStatementNode);
+
     }
     public StatementNode(IfNode IfStatementNode){
+        super();
         this.IfStatementNode = IfStatementNode;
     }
     public StatementNode(WhileNode WhileStatementNode){
+        super();
         this.WhileStatementNode = WhileStatementNode;
+    }
+    public String toString(){
+        return "Statement";
     }
 }
 
@@ -40,9 +60,17 @@ class AssignStatementNode extends Node{
     EqualNode equalNode;
     ExpressionNode expressionNode;
     public AssignStatementNode(IdentifierNode identifierNode,EqualNode equalNode,ExpressionNode expressionNode){
+        super();
+        childrenNodes = new ArrayList<Node>();
         this.identifierNode = identifierNode;
         this.equalNode = equalNode;
         this.expressionNode = expressionNode;
+        childrenNodes.add(this.identifierNode);
+        childrenNodes.add(this.equalNode);
+        childrenNodes.add(this.expressionNode);
+    }
+    public String toString(){
+        return "Assignment";
     }
 }
 
@@ -50,6 +78,9 @@ class EqualNode extends Node{
     String name;
     public EqualNode(){
         this.name = "=";
+    }
+    public String toString(){
+        return "=";
     }
 }
 
@@ -102,12 +133,24 @@ class ExpressionNode extends Node{
     Operation1Node operation1Node;
     TermNode termNode;
     public ExpressionNode(ExpressionNode expressionNode,Operation1Node operation1Node,TermNode termNode){
+        super();
+        childrenNodes = new ArrayList<Node>();
         this.expressionNode = expressionNode;
         this.operation1Node = operation1Node;
         this.termNode = termNode;
+        childrenNodes.add(this.expressionNode);
+        childrenNodes.add(this.operation1Node);
+        childrenNodes.add(this.termNode);
     }
     public ExpressionNode(TermNode termNode){
+        super();
+        childrenNodes = new ArrayList<Node>();
         this.termNode = termNode;
+        childrenNodes.add(this.termNode);
+
+    }
+    public String toString(){
+        return "Expression";
     }
 }
 
@@ -116,12 +159,18 @@ class Operation1Node extends Node{
     public Operation1Node(String operator){
         this.operator = operator;
     }
+    public String toString(){
+        return operator;
+    }
 }
 
 class Operation2Node extends Node{
     String operator;
     public Operation2Node(String operator){
         this.operator = operator;
+    }
+    public String toString(){
+        return operator;
     }
 }
 
@@ -130,12 +179,24 @@ class TermNode extends Node{
     Operation2Node operation2Node;
     FactorNode factorNode;
     public TermNode(TermNode termNode,Operation2Node operation2Node,FactorNode factorNode){
+        super();
+        childrenNodes = new ArrayList<Node>();
         this.termNode = termNode;
         this.operation2Node = operation2Node;
         this.factorNode = factorNode;
+        childrenNodes.add(this.termNode);
+        childrenNodes.add(this.operation2Node);
+        childrenNodes.add(this.factorNode);
+
     }
     public TermNode(FactorNode factorNode){
+        super();
+        childrenNodes = new ArrayList<Node>();
         this.factorNode = factorNode;
+        childrenNodes.add(this.factorNode);
+    }
+    public String toString(){
+        return "Term";
     }
 }
 
@@ -144,15 +205,26 @@ class FactorNode extends Node{
     IdentifierNode identifierNode;
     NumberNode numberNode;
     public FactorNode(ExpressionNode expressionNode){
+        super();
+        childrenNodes = new ArrayList<Node>();
         this.expressionNode=expressionNode;
+        childrenNodes.add(this.expressionNode);
     }
-    public FactorNode(IdentifierNode identifierNode){
+    public FactorNode(IdentifierNode identifierNode) {
+        super();
+        childrenNodes = new ArrayList<Node>();
         this.identifierNode = identifierNode;
+        childrenNodes.add(this.identifierNode);
     }
     public FactorNode(NumberNode numberNode){
+        super();
+        childrenNodes = new ArrayList<Node>();
         this.numberNode = numberNode;
+        childrenNodes.add(this.numberNode);
     }
-
+    public String toString(){
+        return "Factor";
+    }
 }
 
 class NumberNode extends Node{
@@ -160,11 +232,17 @@ class NumberNode extends Node{
     public NumberNode(String number){
         this.number = number;
     }
+    public String toString(){
+        return number;
+    }
 }
 
 class IdentifierNode extends Node{
     String identifierName;
     public IdentifierNode(String identifierName){
         this.identifierName = identifierName;
+    }
+    public String toString(){
+        return identifierName;
     }
 }

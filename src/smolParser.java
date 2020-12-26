@@ -151,12 +151,27 @@ class parser{
             }
             else if(transitionTable[currentState2][tokenColumn2].equals("acc")) {
                 printTokenArray(tokenArray);
+                stack2.pop();
+                //System.out.println(stack2.peek().node.childrenNodes.get(0).childrenNodes.get(0));
+                printTree(stack2.peek().node);
                 return 1;
             }
             else{       //Token not found
                 printTokenArray(tokenArray);
                 return -1;
             }
+        }
+    }
+
+    public void printTree(Node root){
+        System.out.println(root);
+        if(root.childrenNodes!=null) {
+            for (int i = 0; i < root.childrenNodes.size(); i++) {
+                printTree(root.childrenNodes.get(i));
+            }
+        }
+        else{
+
         }
     }
 
