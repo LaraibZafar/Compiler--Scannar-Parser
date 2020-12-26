@@ -252,6 +252,8 @@ class parser{
                 FNode = new FactorNode((ExpressionNode) poppedTokens.get(0).node);
             else if (poppedTokens.get(0).name.equals("I"))
                 FNode = new FactorNode((IdentifierNode) poppedTokens.get(0).node);
+            else if (poppedTokens.get(0).name.equals("N"))
+                FNode = new FactorNode((NumberNode) poppedTokens.get(0).node);
             stack2.push(new tokenNode(FNode,LHS));
         }
         else if(LHS.equals("I")){

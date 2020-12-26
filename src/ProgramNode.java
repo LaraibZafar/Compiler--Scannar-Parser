@@ -1,4 +1,6 @@
-abstract class Node{}
+abstract class Node{
+    Node childNode[];
+}
 
 public class ProgramNode extends Node {
     StatementNode statementNode;
@@ -140,12 +142,17 @@ class TermNode extends Node{
 class FactorNode extends Node{
     ExpressionNode expressionNode;
     IdentifierNode identifierNode;
+    NumberNode numberNode;
     public FactorNode(ExpressionNode expressionNode){
         this.expressionNode=expressionNode;
     }
     public FactorNode(IdentifierNode identifierNode){
         this.identifierNode = identifierNode;
     }
+    public FactorNode(NumberNode numberNode){
+        this.numberNode = numberNode;
+    }
+
 }
 
 class NumberNode extends Node{
