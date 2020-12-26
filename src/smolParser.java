@@ -153,7 +153,7 @@ class parser{
                 printTokenArray(tokenArray);
                 stack2.pop();
                 //System.out.println(stack2.peek().node.childrenNodes.get(0).childrenNodes.get(0));
-                printTree(stack2.peek().node);
+                printTree(stack2.peek().node,"",false);
                 return 1;
             }
             else{       //Token not found
@@ -163,16 +163,24 @@ class parser{
         }
     }
 
-    public void printTree(Node root){
-        System.out.println(root);
-        if(root.childrenNodes!=null) {
-            for (int i = 0; i < root.childrenNodes.size(); i++) {
-                printTree(root.childrenNodes.get(i));
-            }
+    public void printTree(Node root,String prefix,boolean last){
+        if(last){
+            System.out.println(prefix + "-"+ root + "");
+            prefix = prefix +  " ";
         }
         else{
-
+            System.out.println(prefix + "-"+ "|-"+ root + "");
+            prefix = prefix +  " "+ "|   ";
         }
+        if(root.childrenNodes!=null) {
+            for (int i = 0; i < root.childrenNodes.size(); i++) {
+                if(i == root.childrenNodes.size()-1)
+                    printTree(root.childrenNodes.get(i),prefix,true);
+                else
+                    printTree(root.childrenNodes.get(i),prefix,false);
+            }
+        }
+
     }
 
     public Node initializeNode(ArrayList<tokenNode> poppedTokens, String LHS, Stack<tokenNode> stack2){
