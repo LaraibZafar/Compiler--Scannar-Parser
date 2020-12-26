@@ -1,7 +1,8 @@
-var1 = var + 1
-if ( var1 == 123 )
-var3 = abc / 1 / 2 * 1 + 12 - 23
-while ( var2 >= 321 )
-var2 = var2 - 1
-if ( var3 <= 123 )
-var3 = 123 / a $
+a = 1
+if ( a == 1 )
+while ( a >= 1 )
+a = 1
+if ( a <= 1 )
+a = 1 + 1 / 1 * 2
+while ( a >= 1 )
+a = 1 $

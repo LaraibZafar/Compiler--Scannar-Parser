@@ -8,6 +8,7 @@ public class ProgramNode extends Node {
     StatementNode statementNode;
     public ProgramNode(StatementNode statementNode){
         super();
+        childrenNodes = new ArrayList<Node>();
         this.statementNode = statementNode;
         childrenNodes.add(this.statementNode);
     }
@@ -25,14 +26,17 @@ class StatementNode extends Node{
 
     public StatementNode(StatementNode statementNode1, StatementNode statementNode2){
         super();
+        childrenNodes = new ArrayList<Node>();
         this.statementNode1 = statementNode1;
         this.statementNode2 = statementNode2;
+        childrenNodes.add(this.statementNode1);
+        childrenNodes.add(this.statementNode2);
     }
     public StatementNode(StatementNode statementNode1){
         super();
         childrenNodes = new ArrayList<Node>();
         this.statementNode1 = statementNode1;
-        childrenNodes.add(statementNode1);
+        childrenNodes.add(this.statementNode1);
     }
     public StatementNode(AssignStatementNode assignStatementNode){
         super();
@@ -43,11 +47,17 @@ class StatementNode extends Node{
     }
     public StatementNode(IfNode IfStatementNode){
         super();
+        childrenNodes = new ArrayList<Node>();
         this.IfStatementNode = IfStatementNode;
+        childrenNodes.add(this.IfStatementNode);
+
     }
     public StatementNode(WhileNode WhileStatementNode){
         super();
+        childrenNodes = new ArrayList<Node>();
         this.WhileStatementNode = WhileStatementNode;
+        childrenNodes.add(this.WhileStatementNode);
+
     }
     public String toString(){
         return "Statement";
@@ -88,8 +98,15 @@ class IfNode extends Node{
     CompareStatementNode compareStatementNode;
     StatementNode statementNode;
     public IfNode(CompareStatementNode compareStatementNode, StatementNode statementNode){
+        super();
+        childrenNodes = new ArrayList<Node>();
         this.compareStatementNode = compareStatementNode;
         this.statementNode = statementNode;
+        childrenNodes.add(this.compareStatementNode);
+        childrenNodes.add(this.statementNode);
+    }
+    public String toString(){
+        return "IF";
     }
 }
 
@@ -97,8 +114,15 @@ class WhileNode extends Node{
     CompareStatementNode compareStatementNode;
     StatementNode statementNode;
     public WhileNode(CompareStatementNode compareStatementNode, StatementNode statementNode){
+        super();
+        childrenNodes = new ArrayList<Node>();
         this.compareStatementNode = compareStatementNode;
         this.statementNode = statementNode;
+        childrenNodes.add(this.compareStatementNode);
+        childrenNodes.add(this.statementNode);
+    }
+    public String toString(){
+        return "WHILE";
     }
 }
 
@@ -108,16 +132,28 @@ class CompareStatementNode extends Node{ //Y
     NumberNode numberNode;
     IdentifierNode identifierNode2;
     public CompareStatementNode(IdentifierNode identifierNode,CompareOperatorNode compareOperatorNode,NumberNode numberNode){
+        super();
+        childrenNodes = new ArrayList<Node>();
         this.identifierNode1 = identifierNode;
         this.compareOperatorNode = compareOperatorNode;
         this.numberNode = numberNode;
+        childrenNodes.add(this.identifierNode1);
+        childrenNodes.add(this.compareOperatorNode);
+        childrenNodes.add(this.numberNode);
     }
     public CompareStatementNode(IdentifierNode identifierNode1,CompareOperatorNode compareOperatorNode,IdentifierNode identifierNode2){
+        super();
+        childrenNodes = new ArrayList<Node>();
         this.identifierNode1 = identifierNode1;
         this.compareOperatorNode = compareOperatorNode;
         this.identifierNode2 = identifierNode2;
+        childrenNodes.add(this.identifierNode1);
+        childrenNodes.add(this.compareOperatorNode);
+        childrenNodes.add(this.identifierNode2);
     }
-
+    public String toString(){
+        return "Compare";
+    }
 }
 
 
@@ -125,6 +161,9 @@ class CompareOperatorNode extends Node{
     String name;
     public CompareOperatorNode(String name){
         this.name=name;
+    }
+    public String toString(){
+        return name;
     }
 }
 
